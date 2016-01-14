@@ -43,7 +43,7 @@ P = zeros(N,1);
 L = LO;              %get length L and velocity V of SE+CE
 V = 0;
 for(i=1:N-1),
-    %P(i+1) = P(i)+dt*(k5*(calculate_Pc(X(i,1), X(i,2), P(i), V, L)-P(i))); 
+    P(i+1) = P(i)+dt*(k5*(calculate_Pc(X(i,1), X(i,2), P(i), V, L)-P(i))); 
 end
 %plot results
 figure(1)
