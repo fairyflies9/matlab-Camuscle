@@ -25,26 +25,23 @@ k40 = 19.4;             % Rate constant, Ca2+ release from filaments, s^-1
 k5 = 100;               % Rate constant, transfer of force from CE to SE, s^-1
 km1 = 15;               % Rate constant of m increase, s^-1
 km2 = 10;               % Rate constant of m decrease, s^-1
-%C = 2;                  % total dimensionless Ca2+ concentration
-%S = 6;                  % total dimensionless concentrations of sarcoplasmic-reticular binding sites
-C = 2;
-S = .5;
+C = 2;                  % total dimensionless Ca2+ concentration
+S = 6;                  % total dimensionless concentrations of sarcoplasmic-reticular binding sites
 
 tfinal = 1;                     %final simulation time in seconds
 N = 1000000;                    % number of time steps
 dt = tfinal/(N-1);
 P_0 = 0;                        %Initial force
-Ca_0 = C-S-1;                       %Initial concentration free Ca
-Caf_0 = 1;                      %Initial concentration filament bound Ca
+Ca_0 = 1;                       %Initial concentration free Ca
+Caf_0 = 0;                      %Initial concentration filament bound Ca
 % init_cond = [Ca_0 Caf_0 P_0];    %Initial conditions
 % init_cond = [Ca_0 Caf_0];
 time = 0:dt:tfinal;             %vector of times to solve ODEs
 % [T,X] = ode23s(@deriv,time,init_cond);
 
-% L = LO;
+L = LO;
 V = 0;
 lc0=2.6;
-L = lc0;
 % --- functions
 mu = @(Caf) mu0+mu1*Caf;
 alpha1 = alpham;
@@ -57,14 +54,13 @@ Ca = zeros(N,1);
 Caf = zeros(N,1);
 
 P(1) = P_0;
-lc(1) = lc0;
 Ca(1) = Ca_0;
 Caf(1) = Caf_0;
 
-lambda = 1+lambda2*(lc(1) - lc0).^2;
+
 for i=1:N-1;
     
-    if (dt*i)<tfinal
+    if (dt*i)<0.1
         % on
         tmp = k1*(C-Ca(i)-Caf(i));
     else
@@ -73,6 +69,10 @@ for i=1:N-1;
     
     RHS_Ca = (k40*Caf(i)-k30*Ca(i))*(1-Caf(i)) + tmp;
     RHS_Caf = -(k40*Caf(i) - k30*Ca(i))*(1-Caf(i));
+    
+    % lc(i) = L - P(i)./mu(Caf(i));
+    lc(i) = lc0;
+    lambda = 1+lambda2*(lc(i) - lc0).^2;
     
     RHS_P = (lambda*Caf(i)*( 1+alpha1*V+alpha1*mu1*P(i)*RHS_Caf/mu(Caf(i))^2 )-P(i))...
         / (1/k5 + lambda*lc(i)*alpha1*Caf(i)/mu(Caf(i)));
@@ -83,11 +83,8 @@ for i=1:N-1;
     
     P(i+1) = P(i) + RHS_P*dt;
     
-    lc(i+1) = L - P(i+1)./mu(Caf(i+1));
-    lambda = 1+lambda2*(lc(i+1) - lc0).^2;
-    
 end
-
+lc(i+1) = L - P(i)./mu(Caf(i));
 
 %plot results
 figure(1)
