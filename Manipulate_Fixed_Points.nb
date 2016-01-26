@@ -1,0 +1,319 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9797,        309]
+NotebookOptionsPosition[      8921,        272]
+NotebookOutlinePosition[      9274,        288]
+CellTagsIndexPosition[      9231,        285]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{"0", "\[Equal]", 
+    RowBox[{
+     RowBox[{"Ca", " ", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", "Caf"}], ")"}], " ", "k3"}], "-", 
+     RowBox[{"Caf", " ", "k4"}]}]}], ",", "Caf"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"Caf", "\[Rule]", 
+    FractionBox[
+     RowBox[{"Ca", " ", "k3"}], 
+     RowBox[{
+      RowBox[{"Ca", " ", "k3"}], "+", "k4"}]]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.66280388527457*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"eq1", "=", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"k2", "*", "Ca", "*", 
+      RowBox[{"(", 
+       RowBox[{"C", "-", "S", "-", "Ca", "-", "Caf"}], ")"}]}], "+", " ", 
+     RowBox[{"(", " ", 
+      RowBox[{"k1", "*", 
+       RowBox[{"(", 
+        RowBox[{"C", "-", "Ca", "-", "Caf"}], ")"}]}], " ", ")"}]}], ")"}], "/.", 
+   RowBox[{"Caf", "->", 
+    FractionBox[
+     RowBox[{"Ca", " ", "k3"}], 
+     RowBox[{
+      RowBox[{"Ca", " ", "k3"}], "+", "k4"}]]}]}]}]], "Input",
+ CellChangeTimes->{{3.6628038688393097`*^9, 3.662803894252339*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"k1", " ", 
+   RowBox[{"(", 
+    RowBox[{"C", "-", "Ca", "-", 
+     FractionBox[
+      RowBox[{"Ca", " ", "k3"}], 
+      RowBox[{
+       RowBox[{"Ca", " ", "k3"}], "+", "k4"}]]}], ")"}]}], "+", 
+  RowBox[{"Ca", " ", "k2", " ", 
+   RowBox[{"(", 
+    RowBox[{"C", "-", "Ca", "-", 
+     FractionBox[
+      RowBox[{"Ca", " ", "k3"}], 
+      RowBox[{
+       RowBox[{"Ca", " ", "k3"}], "+", "k4"}]], "-", "S"}], 
+    ")"}]}]}]], "Output",
+ CellChangeTimes->{3.6628038964201937`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"eqON", "=", 
+  RowBox[{"eq1", "/.", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"k3", "\[Rule]", "40"}], ",", 
+     RowBox[{"k4", "\[Rule]", "19.4"}], ",", 
+     RowBox[{"k1", "\[Rule]", "9"}], ",", 
+     RowBox[{"k2", "\[Rule]", "50"}]}], "}"}]}]}]], "Input",
+ CellChangeTimes->{{3.662803845270751*^9, 3.662803848807384*^9}, {
+  3.6628038989864283`*^9, 3.662803906260298*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"9", " ", 
+   RowBox[{"(", 
+    RowBox[{"C", "-", "Ca", "-", 
+     FractionBox[
+      RowBox[{"40", " ", "Ca"}], 
+      RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+       RowBox[{"40", " ", "Ca"}]}]]}], ")"}]}], "+", 
+  RowBox[{"50", " ", "Ca", " ", 
+   RowBox[{"(", 
+    RowBox[{"C", "-", "Ca", "-", 
+     FractionBox[
+      RowBox[{"40", " ", "Ca"}], 
+      RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+       RowBox[{"40", " ", "Ca"}]}]], "-", "S"}], ")"}]}]}]], "Output",
+ CellChangeTimes->{3.6628039068650723`*^9, 3.6628039479709473`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"eqOFF", "=", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"k2", "*", "Ca", "*", 
+      RowBox[{"(", 
+       RowBox[{"C", "-", "S", "-", "Ca", "-", "Caf"}], ")"}]}], "/.", 
+     RowBox[{"Caf", "->", 
+      FractionBox[
+       RowBox[{"Ca", " ", "k3"}], 
+       RowBox[{
+        RowBox[{"Ca", " ", "k3"}], "+", "k4"}]]}]}], ")"}], "/.", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"k3", "\[Rule]", "40"}], ",", 
+     RowBox[{"k4", "\[Rule]", "19.4"}], ",", 
+     RowBox[{"k1", "\[Rule]", "9"}], ",", 
+     RowBox[{"k2", "\[Rule]", "50"}]}], "}"}]}]}]], "Input",
+ CellChangeTimes->{{3.66280411882201*^9, 3.662804149488112*^9}}],
+
+Cell[BoxData[
+ RowBox[{"50", " ", "Ca", " ", 
+  RowBox[{"(", 
+   RowBox[{"C", "-", "Ca", "-", 
+    FractionBox[
+     RowBox[{"40", " ", "Ca"}], 
+     RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+      RowBox[{"40", " ", "Ca"}]}]], "-", "S"}], ")"}]}]], "Output",
+ CellChangeTimes->{3.6628041503025846`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"eq2", "=", 
+  RowBox[{
+   FractionBox[
+    RowBox[{"Ca", " ", "k3"}], 
+    RowBox[{
+     RowBox[{"Ca", " ", "k3"}], "+", "k4"}]], "/.", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"k3", "\[Rule]", "40"}], ",", 
+     RowBox[{"k4", "\[Rule]", "19.4"}]}], "}"}]}]}]], "Input",
+ CellChangeTimes->{{3.662804102187125*^9, 3.662804110184903*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"40", " ", "Ca"}], 
+  RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+   RowBox[{"40", " ", "Ca"}]}]]], "Output",
+ CellChangeTimes->{3.662804111073305*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"9", " ", 
+         RowBox[{"(", 
+          RowBox[{"C", "-", "Ca", "-", 
+           FractionBox[
+            RowBox[{"40", " ", "Ca"}], 
+            RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+             RowBox[{"40", " ", "Ca"}]}]]}], ")"}]}], "+", 
+        RowBox[{"50", " ", "Ca", " ", 
+         RowBox[{"(", 
+          RowBox[{"C", "-", "Ca", "-", 
+           FractionBox[
+            RowBox[{"40", " ", "Ca"}], 
+            RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+             RowBox[{"40", " ", "Ca"}]}]], "-", "S"}], ")"}]}]}], ",", 
+       RowBox[{"50", " ", "Ca", " ", 
+        RowBox[{"(", 
+         RowBox[{"C", "-", "Ca", "-", 
+          FractionBox[
+           RowBox[{"40", " ", "Ca"}], 
+           RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+            RowBox[{"40", " ", "Ca"}]}]], "-", "S"}], ")"}]}], ",", 
+       FractionBox[
+        RowBox[{"40", " ", "Ca"}], 
+        RowBox[{"19.4`", "\[VeryThinSpace]", "+", 
+         RowBox[{"40", " ", "Ca"}]}]]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Ca", ",", "0", ",", "4"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "2"}], ",", "5"}], "}"}]}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Ca ON\>\"", ",", "\"\<Ca OFF\>\"", ",", "\"\<Caf\>\""}], 
+       "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"C", ",", "2", ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"S", ",", "6", ",", "20"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.662803910085198*^9, 3.662803993796088*^9}, {
+  3.6628041561699657`*^9, 3.6628041804493732`*^9}, {3.662804245813519*^9, 
+  3.662804275181136*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{C$$ = 9, $CellContext`S$$ = 9, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[C$$], 2, 10}, {
+      Hold[$CellContext`S$$], 6, 20}}, Typeset`size$$ = {453., {113., 118.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+    C$22449$$ = 0, $CellContext`S$22450$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {C$$ = 2, $CellContext`S$$ = 6}, 
+      "ControllerVariables" :> {
+        Hold[C$$, C$22449$$, 0], 
+        Hold[$CellContext`S$$, $CellContext`S$22450$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Plot[{9 (C$$ - $CellContext`Ca - 40 $CellContext`Ca/(19.4 + 
+           40 $CellContext`Ca)) + 
+         50 $CellContext`Ca (C$$ - $CellContext`Ca - 40 $CellContext`Ca/(19.4 + 
+           40 $CellContext`Ca) - $CellContext`S$$), 
+         50 $CellContext`Ca (C$$ - $CellContext`Ca - 40 $CellContext`Ca/(19.4 + 
+          40 $CellContext`Ca) - $CellContext`S$$), 40 $CellContext`Ca/(19.4 + 
+         40 $CellContext`Ca)}, {$CellContext`Ca, 0, 4}, PlotRange -> {-2, 5}, 
+        PlotLegends -> {"Ca ON", "Ca OFF", "Caf"}], 
+      "Specifications" :> {{C$$, 2, 10}, {$CellContext`S$$, 6, 20}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{498., {198., 203.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.662804266260024*^9, 3.66280427602742*^9}}]
+}, Open  ]]
+},
+WindowSize->{808, 651},
+WindowMargins->{{Automatic, 8}, {16, Automatic}},
+FrontEndVersion->"10.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (July 29, \
+2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 263, 8, 28, "Input"],
+Cell[846, 32, 253, 8, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1136, 45, 581, 17, 49, "Input"],
+Cell[1720, 64, 510, 17, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2267, 86, 401, 10, 28, "Input"],
+Cell[2671, 98, 574, 16, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3282, 119, 658, 19, 49, "Input"],
+Cell[3943, 140, 304, 8, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4284, 153, 363, 11, 49, "Input"],
+Cell[4650, 166, 188, 5, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4875, 176, 1841, 49, 145, "Input"],
+Cell[6719, 227, 2186, 42, 418, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
