@@ -21,7 +21,7 @@ alpham = 0.80;          % Coefficient of alpha(vc) for vc<0, s
 alphap = 2.90;          % Coefficient of alpha(vc) for vc>0, s
 
 k1 = 9;                 % Rate constant, Ca2+ binding in SR, s^-1
-k2 = 5; % k2 = 50;                % Rate constant, Ca2+ release from SR, s^-1
+k2 = 50;                % Rate constant, Ca2+ release from SR, s^-1
 k30 = 40;               % Rate constant, Ca2+ binding to filaments, s^-1
 k40 = 19.4;             % Rate constant, Ca2+ release from filaments, s^-1
 k5 = 100;               % Rate constant, transfer of force from CE to SE, s^-1
@@ -29,8 +29,8 @@ k5 = 100;               % Rate constant, transfer of force from CE to SE, s^-1
 km1 = 15;               % Rate m shortening
 km2 = 10;               % Rate m returning to 1
 
-C = 2;                  % total dimensionless Ca2+ concentration
-S = 6;                  % total dimensionless concentrations of sarcoplasmic-reticular binding sites
+C = 200;                  % total dimensionless Ca2+ concentration
+S = 200;                  % total dimensionless concentrations of sarcoplasmic-reticular binding sites
 
 % --- more constants
 V = 0;                  % rate of change of L
@@ -68,7 +68,7 @@ for i=1:N-1;
     
     % calculate all RHS of DEQs at current time step (i)
     tmp = k2*Ca(i)*(C-S-Ca(i)-Caf(i));  % uptake of calcium always happens
-    if (dt*i)<0.3
+    if (dt*i)<0.5
         % stimulus on
         tmp = tmp + k1*(C-Ca(i)-Caf(i));
     end
@@ -120,6 +120,7 @@ plot(time,Ca,time,Caf,'linewidth',2)
 xlabel('time (sec)');
 ylabel('dimensionless concentration');
 legend('Ca', 'Caf');
+ylim([0 3])
 set(gca,'fontsize',18)
 
 figure(4)
@@ -129,7 +130,8 @@ ylabel('force (mN)');
 legend('force','lc','vc','m')
 set(gca,'fontsize',18)
 
-
+%figure(2)
+%plot(time,C-Ca-Caf, time,C-S-Ca-Caf)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
