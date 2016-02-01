@@ -67,7 +67,7 @@ alpha1 = alphap;        % assuming vc>0 initially
 % nu = 5 frequency
 % tau = 20ms decay time
 % k1b = kbar(tfinal,dt,k1/5,10,0.2);
-k1b = kbar2(tfinal,dt,k1,5,0.02);
+k1b = kbar2(tfinal,dt,k1,5,0.2);
 
 % --- time stepping with forward Euler
 for i=1:N-1;
