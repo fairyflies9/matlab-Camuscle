@@ -66,7 +66,8 @@ alpha1 = alphap;        % assuming vc>0 initially
 % generate the spike-train forcing
 % nu = 5 frequency
 % tau = 20ms decay time
-k1b = kbar(tfinal,dt,5,0.02);
+% k1b = kbar(tfinal,dt,k1/5,10,0.2);
+k1b = kbar2(tfinal,dt,k1,5,0.02);
 
 % --- time stepping with forward Euler
 for i=1:N-1;
@@ -119,11 +120,12 @@ RHS_P = (lambda*Caf(N)*( 1+alpha1*V+alpha1*mu1*P(N)*RHS_Caf/mu(Caf(N))^2 )-P(N))
 vc(N) = V - RHS_P/mu(Caf(N));
 
 % --- plot results
-figure(3)
-plot(time,Ca,time,Caf,'linewidth',2)
+figure(3);clf;
+plot(time,Ca,time,Caf,'linewidth',2);hold on
+plot(time,k1b,'k--','linewidth',2)
 xlabel('time (sec)');
 ylabel('dimensionless concentration');
-legend('Ca', 'Caf');
+legend('Ca', 'Caf','k1');
 ylim([0 3])
 set(gca,'fontsize',18)
 
