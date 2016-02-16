@@ -9,7 +9,7 @@ nstepmax = ceil(tfinal/dt)+1;
 f = zeros(nstepmax,1);
 
 % spike times
-ts = [0:1/nu:tfinal];
+ts = [0:1/nu:2*tfinal];
 nt = 2;     % the next spike time to check
 
 % for computing speed
@@ -17,6 +17,7 @@ expt = exp(-dt/tau);
 
 time = 0;   % current time
 f(1) = a;  % initial condition
+
 for nstep = 2:nstepmax
     if (ts(nt)>time) && (ts(nt)<time+dt)
         % spike to be used

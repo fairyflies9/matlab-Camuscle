@@ -6,7 +6,7 @@
 % force:  mN = milliNewtons (milli=10^-3; Newton=Kg m/s^2)
 % velocity:  mm/s = millimeters per second
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clear all
+% clear all
 clf
 global L0 P0 mu0 mu1 lambda2 alpham alphap k1 k2 k30 k40 k5 C S
 
@@ -20,8 +20,8 @@ lambda2 = -20;          % Coefficient of lambda(lc)
 alpham = 0.80;          % Coefficient of alpha(vc) for vc<0, s
 alphap = 2.90;          % Coefficient of alpha(vc) for vc>0, s
 
-k1 = 9;                 % Rate constant, Ca2+ binding in SR, s^-1
-k2 = 50;                % Rate constant, Ca2+ release from SR, s^-1
+k1 = 9;                 % Rate constant, Ca2+ release from SR, s^-1
+k2 = 50;                % Rate constant, Ca2+ binding to SR, s^-1
 k30 = 40;               % Rate constant, Ca2+ binding to filaments, s^-1
 k40 = 19.4;             % Rate constant, Ca2+ release from filaments, s^-1
 k5 = 100;               % Rate constant, transfer of force from CE to SE, s^-1
@@ -66,8 +66,11 @@ alpha1 = alphap;        % assuming vc>0 initially
 % generate the spike-train forcing
 % nu = 5 frequency
 % tau = 20ms decay time
-% k1b = kbar(tfinal,dt,k1/5,10,0.2);
-k1b = k1*kbar2(tfinal,dt,k1/5,5,0.2);
+tau = 0.005;
+% k1b = kbar(tfinal,dt,k1/2,50,tau);
+k1b = kbar_square(tfinal,dt,k1,50,0.001);
+% k1b = k1*kbar2(tfinal,dt,k1/5,5,0.2);
+% k1b = k1*ones(size(time));
 
 % --- time stepping with forward Euler
 for i=1:N-1;
@@ -122,15 +125,20 @@ vc(N) = V - RHS_P/mu(Caf(N));
 % --- plot results
 figure(3);clf;
 plot(time,Ca,time,Caf,'linewidth',2);hold on
-plot(time,k1b,'k--','linewidth',2)
+plot(time,k1b/k1,'k--','linewidth',2)
+
+plot(time,P,'linewidth',2)
+
 xlabel('time (sec)');
-ylabel('dimensionless concentration');
-legend('Ca', 'Caf','k1');
+% ylabel('dimensionless concentration');
+ylabel('dimensionless value');
+legend('Ca', 'Caf','k_1(t)','force');
 ylim([0 3])
 set(gca,'fontsize',18)
 
-figure(4)
+figure(4);clf;hold on
 plot(time,P,time,lc,time,vc,time,m,'linewidth',2)
+plot(time,zeros(size(time)),'k:')
 xlabel('time (sec)');
 ylabel('force (mN)');
 legend('force','lc','vc','m')
