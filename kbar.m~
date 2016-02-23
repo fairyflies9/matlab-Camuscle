@@ -1,0 +1,17 @@
+function f = kbar(tfinal,dt,nu,tau)
+global k1
+% dt time step size
+% nu frequency of arriving spikes
+% tau decay constant
+% f vector value of kbar
+
+nstepmax = ceil(tfinal/dt);
+f = zeros(nstepmax,1);
+
+% spike times
+ts = [0:1/nu:tfinal];
+nt = 2;     % the next spike t
+
+f(1) = k1;  % initial condition
+for nstep = 2:nstepmax
+    

@@ -6,7 +6,7 @@
 % force:  mN = milliNewtons (milli=10^-3; Newton=Kg m/s^2)
 % velocity:  mm/s = millimeters per second
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clear all
+% clear all
 clf
 global L0 P0 mu0 mu1 lambda2 alpham alphap k1 k2 k30 k40 k5 C S
 
@@ -20,8 +20,8 @@ lambda2 = -20;          % Coefficient of lambda(lc)
 alpham = 0.80;          % Coefficient of alpha(vc) for vc<0, s
 alphap = 2.90;          % Coefficient of alpha(vc) for vc>0, s
 
-k1 = 9;                 % Rate constant, Ca2+ binding in SR, s^-1
-k2 = 5; % k2 = 50;                % Rate constant, Ca2+ release from SR, s^-1
+k1 = 9;                 % Rate constant, Ca2+ release from SR, s^-1
+k2 = 50;                % Rate constant, Ca2+ binding to SR, s^-1
 k30 = 40;               % Rate constant, Ca2+ binding to filaments, s^-1
 k40 = 19.4;             % Rate constant, Ca2+ release from filaments, s^-1
 k5 = 100;               % Rate constant, transfer of force from CE to SE, s^-1
@@ -29,8 +29,8 @@ k5 = 100;               % Rate constant, transfer of force from CE to SE, s^-1
 km1 = 15;               % Rate m shortening
 km2 = 10;               % Rate m returning to 1
 
-C = 2;                  % total dimensionless Ca2+ concentration
-S = 6;                  % total dimensionless concentrations of sarcoplasmic-reticular binding sites
+C = 200;                  % total dimensionless Ca2+ concentration
+S = 200;                  % total dimensionless concentrations of sarcoplasmic-reticular binding sites
 
 % --- more constants
 V = 0;                  % rate of change of L
@@ -63,25 +63,33 @@ lc(1) = L - P(1)./mu(Caf(1));
 lambda = (1+lambda2*(lc(1) - lc0).^2);
 alpha1 = alphap;        % assuming vc>0 initially
 
+% generate the spike-train forcing
+% nu = 5 frequency
+% tau = 20ms decay time
+tau = 0.005;
+% k1b = kbar(tfinal,dt,k1/2,50,tau);
+k1b = kbar_square(tfinal,dt,k1,50,0.001);
+% k1b = k1*kbar2(tfinal,dt,k1/5,5,0.2);
+% k1b = k1*ones(size(time));
+
 % --- time stepping with forward Euler
 for i=1:N-1;
     
     % calculate all RHS of DEQs at current time step (i)
     tmp = k2*Ca(i)*(C-S-Ca(i)-Caf(i));  % uptake of calcium always happens
-    if (dt*i)<0.3
-        % stimulus on
-        tmp = tmp + k1*(C-Ca(i)-Caf(i));
-    end
+
+    % account for stimulus
+    tmp = tmp + k1b(i)*(C-Ca(i)-Caf(i));
     
     k3 = k30/sqrt(m(i));
     k4 = k40/sqrt(m(i));
     
     % removed weird non-biological term
-%     RHS_Ca = k4*Caf(i) - k3*Ca(i)*(1-Caf(i)) + tmp;
-%     RHS_Caf = -k4*Caf(i) + k3*Ca(i)*(1-Caf(i));
+     RHS_Ca = k4*Caf(i) - k3*Ca(i)*(1-Caf(i)) + tmp;
+     RHS_Caf = -k4*Caf(i) + k3*Ca(i)*(1-Caf(i));
     
-    RHS_Ca = (k4*Caf(i)-k3*Ca(i))*(1-Caf(i)) + tmp;
-    RHS_Caf = -(k4*Caf(i) - k3*Ca(i))*(1-Caf(i));
+%     RHS_Ca = (k4*Caf(i)-k3*Ca(i))*(1-Caf(i)) + tmp;
+%     RHS_Caf = -(k4*Caf(i) - k3*Ca(i))*(1-Caf(i));
     
     RHS_P = (lambda*Caf(i)*( 1+alpha1*V+alpha1*mu1*P(i)*RHS_Caf/mu(Caf(i))^2 )-P(i))...
         / (1/k5 + lambda*lc(i)*alpha1*Caf(i)/mu(Caf(i)));
@@ -115,21 +123,29 @@ RHS_P = (lambda*Caf(N)*( 1+alpha1*V+alpha1*mu1*P(N)*RHS_Caf/mu(Caf(N))^2 )-P(N))
 vc(N) = V - RHS_P/mu(Caf(N));
 
 % --- plot results
-figure(3)
-plot(time,Ca,time,Caf,'linewidth',2)
+figure(3);clf;
+plot(time,Ca,time,Caf,'linewidth',2);hold on
+plot(time,k1b/k1,'k--','linewidth',2)
+
+plot(time,P,'linewidth',2)
+
 xlabel('time (sec)');
-ylabel('dimensionless concentration');
-legend('Ca', 'Caf');
+% ylabel('dimensionless concentration');
+ylabel('dimensionless value');
+legend('Ca', 'Caf','k_1(t)','force');
+ylim([0 3])
 set(gca,'fontsize',18)
 
-figure(4)
+figure(4);clf;hold on
 plot(time,P,time,lc,time,vc,time,m,'linewidth',2)
+plot(time,zeros(size(time)),'k:')
 xlabel('time (sec)');
 ylabel('force (mN)');
 legend('force','lc','vc','m')
 set(gca,'fontsize',18)
 
-
+%figure(2)
+%plot(time,C-Ca-Caf, time,C-S-Ca-Caf)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
